@@ -1,0 +1,14 @@
+.button {
+    border: none;
+    background: black;
+    color: white;
+    width: 100px;
+    height: 40px;
+    box-shadow: 10px 10px 14px 1px rgba(00,00,00,0.2);
+    &:hover {
+        cursor: pointer;
+        background: white;
+        color: black;
+    }
+
+}

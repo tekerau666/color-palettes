@@ -1,0 +1,27 @@
+.navbar_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    img {
+        height: 40px;
+        width: 40px;
+    }
+    ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        li {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            border: 0.5px solid #000;
+            padding: 5px;
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+    }
+}
