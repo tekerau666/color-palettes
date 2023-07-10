@@ -1,0 +1,35 @@
+
+:root {
+  --primary-color: #6750A4;
+  --primary-container: #b64343;
+  --primary-dark: #000;
+
+  --secondary-color: #625B71;
+  --secondary-container: #E8DEF8 ;
+  --secondary-dark: #000 ;
+
+  --tertiary-color: #7D5260;
+  --tertiary-container: #FFD8E4;
+
+  --surface-color: #1f1a1c;
+
+  --padding: 20px
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+  width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: var(--secondary-container);
+  font-size: 12px;
+}

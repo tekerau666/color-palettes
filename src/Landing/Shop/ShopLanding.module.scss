@@ -1,0 +1,96 @@
+@import '../../index.scss';
+
+.container {
+  min-height: 100vh;
+  max-width: 800px;
+  background-color: var(--surface-color);
+  overflow: auto;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  border: 1px solid var(--primary-dark);
+  border-radius: 16px;
+  background-color: var(--primary-color);
+  color: var(--secondary-container);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--primary-dark);
+  }
+}
+
+.hero {
+  display: flex;
+  margin: 70px 0 0 20px;
+}
+
+.information {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 350px;
+}
+
+.card {
+  width: 250px;
+  height: 350px;
+  border-radius: 24px;
+  border: 1px solid #000;
+  background-color: var(--tertiary-color);
+  padding: 8px;
+  margin: 8px;
+  button {
+    width: 40px;
+    height: 20px;
+  }
+}
+
+.imgCard {
+  width: 230px;
+  height: 200px;
+  border-radius: 24px;
+  border: 1px solid #000;
+}
+
+.cardInfo {
+  display: grid;
+  grid-template-columns: auto 1fr ;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.boxContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+  gap: 30px;
+}
+
+.boxCard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 250px;
+  height: 250px;
+  border-radius: 24px;
+  border: 1px solid #000;
+  background-color: var(--tertiary-color);
+  padding: 10px;
+}
+
+.boxInformation {
+  display: flex;
+  gap: 10px;
+}
+
+.boxCircle {
+  display: flex;
+  justify-content: center;
+  background: var(--tertiary-container);
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+}

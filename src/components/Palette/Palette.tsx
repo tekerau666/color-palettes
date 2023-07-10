@@ -2,6 +2,7 @@ import * as chroma from 'chroma-js'
 import {FC, useCallback, useEffect, useState} from "react";
 import style from "../Palette/Palette.module.scss";
 import {Button} from "../Button/Button";
+import {oklch} from "chroma-js";
 
 interface PaletteProps {
     hexState: string
@@ -15,15 +16,14 @@ export const Palette: FC<PaletteProps> = ({hexState}) => {
         const palettes: Record<number, string[]> = {};
         for (let i = 0; i < countPalettes; i++) {
             const randomColor = chroma.random()
-            const color = chroma.scale([hexState, randomColor]).mode('lab').colors(6);
+            const color = chroma.scale([hexState, chroma.oklch(100, 0, 0)]).mode('oklch').colors(10);
             palettes[i] = color
         }
-        console.log(palettes)
         setPaletteColors(palettes)
     }, [hexState])
 
     const handleClick = async () => {
-        await getPaletteColors(4)
+        await getPaletteColors(1)
         await setShowColor(true)
     }
     return (
@@ -51,7 +51,9 @@ export const Palette: FC<PaletteProps> = ({hexState}) => {
                                             width: '80px',
                                             height: '80px',
                                             color: 'white'
-                                        }}>{color}</div>
+                                        }}>
+                                            {color}
+                                        </div>
                                     ))}
                                 </div>
 

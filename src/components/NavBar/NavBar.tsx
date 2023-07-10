@@ -1,14 +1,14 @@
 import style from './NavBar.module.scss'
 import logo from '../../assets/logo.png'
-export const NavBar = () => {
+export const NavBar = ({ image, info, links } : {image: any, info: string, links: string}) => {
 	return (
 		<>
 			<div className={style.navbar_container}>
-				<img src={logo} alt="logo"/>
-				<span>tekerau</span>
+				<img src={image} alt="logo"/>
+				<span>{info}</span>
 					<ul>
-						<li>Link 1</li>
-						<li>Link 2</li>
+						<li>{links}</li>
+						<li>{links}</li>
 						<li>Link 3</li>
 					</ul>
 			</div>
