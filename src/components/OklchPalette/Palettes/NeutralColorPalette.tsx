@@ -1,27 +1,15 @@
-/*
-import {getBackgroundPalette} from "./generatorPalette";
-import {useState} from "react";
+import {getBackgroundPalette} from "../Generators/generatorPalette";
 import {readableColor} from "polished";
-import {ColorInput} from "./ColorInput";
 
-export const SurfacePalette = ({initialColor, paletteGenerator}: {
+export const NeutralColorPalette = ({initialColor, paletteGenerator}: {
 	initialColor: string;
 	copyable?: boolean;
 	paletteGenerator: typeof getBackgroundPalette;
 }) => {
-	const [color, setColor] = useState(initialColor);
-	const palette = paletteGenerator(color);
+	const palette = paletteGenerator(initialColor);
 	return (
 		<div
-			style={{
-				display: "flex",
-				width: "100%",
-				minWidth: "200px"
-			}}
 		>
-			<div>
-				<ColorInput color={color} onChange={setColor}/>
-			</div>
 			<div
 				style={{
 					display: "flex",
@@ -30,7 +18,7 @@ export const SurfacePalette = ({initialColor, paletteGenerator}: {
 					minWidth: "200px"
 				}}
 			>
-				{/!*Отрисовка блоков и шейдов*!/}
+				{/*Отрисовка блоков и шейдов*/}
 				{Object.entries(palette)
 					.map(([shade, color]) => {
 						return (
@@ -52,4 +40,4 @@ export const SurfacePalette = ({initialColor, paletteGenerator}: {
 			</div>
 		</div>
 	)
-};*/
+};

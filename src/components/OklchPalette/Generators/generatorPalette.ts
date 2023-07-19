@@ -52,7 +52,7 @@ const getBackgroundColorSaturation = (lightnessValue: number) => {
         getSaturationGradient(lightnessValue)
     )
 };
-const getBrandColorSaturation = (
+const getPrimaryColorSaturation = (
     lightnessValue: number,
     brandOklchColor: LCHColor
 ) => {
@@ -76,40 +76,10 @@ const getBrandColorSaturation = (
         secondPoint
     );
     const offset = secondPoint.c - saturationGradient * secondPoint.l;
-    console.log(getSaturationGradient(brandOklchColor, secondPoint) * lightnessValue + offset)
     return (
         getSaturationGradient(brandOklchColor, secondPoint) * lightnessValue + offset
     );
 };
-
-// WTF функция vahui
-const getTertiaryColorSaturation = (lightnessValue: number, tertiaryOklchColor: LCHColor) => {
-
-    if (tertiaryOklchColor.c <= 0.053) {
-        return tertiaryOklchColor.c;
-    }
-
-    const isLighterThanBrandLightness = lightnessValue > tertiaryOklchColor.l;
-
-    const lightestPoint = {c: CHROMA_SCALE[100], l: LIGHTNESS_SCALE[100]};
-    const darkestPoint = {c: CHROMA_SCALE[0], l: LIGHTNESS_SCALE[0]};
-
-    const getChromaGradient = (first: { c: number; l: number }, second: { c: number; l: number }): number => {
-        return (second.c - first.c) / (second.l - first.l);
-    }
-    const secondPoint = isLighterThanBrandLightness
-        ? lightestPoint
-        : darkestPoint;
-    const hueGradient = getChromaGradient(tertiaryOklchColor, secondPoint);
-    const offset = secondPoint.c - (hueGradient * secondPoint.l);
-    return (
-        getChromaGradient(tertiaryOklchColor, secondPoint) * lightnessValue + offset
-    )
-}
-
-const tretiyCvet = mapValues(CHROMA_SCALE, (chromaValue: number) => {
-    return chromaValue
-})
 
 type LCHColor = {
     mode: "oklch";
@@ -148,7 +118,7 @@ const ScaleLogic = {
     }),
     brand: (oklchColor: LCHColor) => (lightnessValue: number) => ({
         ...oklchColor,
-        c: getBrandColorSaturation(lightnessValue, oklchColor),
+        c: getPrimaryColorSaturation(lightnessValue, oklchColor),
         l: lightnessValue
     }),
     secondary: (oklchColor: LCHColor) => (lightnessValue: number) => ({
@@ -156,12 +126,7 @@ const ScaleLogic = {
         c: 0.035,
         l: lightnessValue
     }),
-    tertiary: (oklchColor: LCHColor) => (lightnessValue: number)  => ({
-        ...oklchColor,
-        h: (oklchColor.h + 30) % 360,
-        c: tretiyCvet,
-        l: lightnessValue
-    }),
+
 };
 export const getBackgroundPalette = (hexColor: string) => {
     const oklchColor = oklch(parse(hexColor));
@@ -178,7 +143,7 @@ export const getBackgroundPalette = (hexColor: string) => {
     );
 };
 
-export const getBrandPalette = (hexColor: string) => {
+export const getPrimaryPalette = (hexColor: string) => {
     // Convert hex into provided color scale
     const oklchColor = oklch(parse(hexColor));
     // console.log(mapValues(LIGHTNESS_SCALE, (lightnessValue: number) => ScaleLogic.brand(oklchColor)(lightnessValue)))
@@ -192,14 +157,6 @@ export const getSecondaryPalette = (hexColor: string) => {
     // console.log(mapValues(LIGHTNESS_SCALE, (lightnessValue: number) => ScaleLogic.secondary(oklchColor)(lightnessValue)))
     return mapValues(LIGHTNESS_SCALE, (lightnessValue: number) =>
         upperCase(formatHex(ScaleLogic.secondary(oklchColor)(lightnessValue)))
-    );
-}
-export const getTertiaryPalette = (hexColor: string) => {
-    // Convert hex into provided color scale
-    const oklchColor = oklch(parse(hexColor));
-    console.log(mapValues(LIGHTNESS_SCALE, (lightnessValue: number) => (ScaleLogic.tertiary(oklchColor)(lightnessValue))))
-    return mapValues(LIGHTNESS_SCALE, (lightnessValue: number) =>
-        upperCase(formatHex(ScaleLogic.tertiary(oklchColor)(lightnessValue)))
     );
 }
 

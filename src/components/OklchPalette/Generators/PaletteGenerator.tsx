@@ -1,24 +1,21 @@
 import * as React from "react";
 import {readableColor} from "polished";
-import {getBackgroundPalette, getBrandPalette, getSecondaryPalette, getTertiaryPalette} from "./generatorPalette";
-import {HexColorPicker} from "react-colorful";
+import {getBackgroundPalette, getPrimaryPalette, getSecondaryPalette} from "./generatorPalette";
 import {useEffect, useState} from "react";
-import {ColorInput} from "./ColorInput";
+import {ColorInput} from "../Palettes/ColorInput";
+import {NeutralColorPalette} from "../Palettes/NeutralColorPalette";
 
-const THEME = {
-    background: "#1B283B",
-    brand: "#6750A4"
-};
 
-export const Palette = ({initialColor, paletteGenerator, getPaletteColor, showColorInput = true}: {
+
+export const PaletteGenerator = ({initialColor, getPrimaryPaletteColor, getSecondaryPaletteColor, showColorInput = true}: {
     initialColor: string;
-    paletteGenerator: typeof getBrandPalette;
+    getPrimaryPaletteColor: typeof getPrimaryPalette;
+    getSecondaryPaletteColor: typeof getSecondaryPalette;
     showColorInput?: boolean;
-    getPaletteColor: typeof getSecondaryPalette;
 }) => {
     const [color, setColor] = useState(initialColor);
-    const palette = paletteGenerator(color);
-    const minorColors = getPaletteColor(palette['50'])
+    const palette = getPrimaryPaletteColor(color);
+    const minorColors = getSecondaryPaletteColor(palette['50'])
     const color90 = palette['90']
     const color40 = palette['40']
     const color10 = palette['10']
@@ -87,43 +84,12 @@ export const Palette = ({initialColor, paletteGenerator, getPaletteColor, showCo
                             </div>
                         );
                     })}
+                <NeutralColorPalette
+                    initialColor={color}
+                    paletteGenerator={getBackgroundPalette}
+                />
             </div>
         </div>
     )
 };
-export default function OklchPalette() {
-    return (
-        <div
-            style={{
-                margin: "auto",
-                display: "flex",
-                flexDirection: "column",
-                maxWidth: "800px"
-            }}
-        >
-           {/* <h2>Background</h2>
-            <Palette
-                key={"background"}
-                initialColor={THEME.background}
-                paletteGenerator={getBackgroundPalette}
-                showColorInput={false}
-            />*/}
-            <h2>Brand</h2>
-            <Palette
-                key={"brand"}
-                initialColor={THEME.brand}
-                paletteGenerator={getBrandPalette}
-                getPaletteColor={getSecondaryPalette}
-            />
-            {/*
-            <h2>Secondary</h2>
-            <Palette
-                key={"brand"}
-                initialColor={'#674cb2'}
-                paletteGenerator={getSecondaryPalette}
-                showColorInput={false}
-            />*/}
 
-        </div>
-    );
-}
